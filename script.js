@@ -170,7 +170,7 @@ const defaultSkills = [
 
 const defaultLinks = {
     email: "abdullahelbaki000@gmail.com",
-    github: "https://github.com/rjinnur",
+    github: "https://github.com/abdullahelbaki",
     linkedin: "https://www.linkedin.com/in/abdullahel-baki-5ab5a625a/",
     facebook: "https://www.facebook.com/jinnur.rohman.7",
     instagram: "https://www.instagram.com/jinnur.rohman/",
