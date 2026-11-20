@@ -394,31 +394,39 @@ async function loadAndRenderLinks() {
     if (!links) {
         await saveSetting('socialLinks', defaultLinks);
         links = defaultLinks;
+    } else if (!links.github || links.github.includes('rjinnur')) {
+        links.github = "https://github.com/abdullahelbaki";
+        await saveSetting('socialLinks', links);
     }
+
+    const githubUrl = "https://github.com/abdullahelbaki";
 
     const quickHTML = `
         <a href="mailto:${links.email}" title="Email"><i class="fa-regular fa-envelope"></i></a>
-        <a href="${links.github}" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="${links.linkedin}" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="${githubUrl}" target="_blank" title="GitHub" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+        <a href="${links.linkedin}" target="_blank" title="LinkedIn" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
     `;
     document.getElementById('quickSocialContainer').innerHTML = quickHTML;
     document.getElementById('footerSocialContainer').innerHTML = quickHTML;
 
     document.getElementById('aboutSocialGrid').innerHTML = `
-        <a href="${links.facebook}" target="_blank" class="social-card fb"><i class="fa-brands fa-facebook-f"></i> <span>Facebook</span></a>
-        <a href="${links.instagram}" target="_blank" class="social-card ig"><i class="fa-brands fa-instagram"></i> <span>Instagram</span></a>
-        <a href="${links.github}" target="_blank" class="social-card gh"><i class="fa-brands fa-github"></i> <span>GitHub</span></a>
-        <a href="${links.threads}" target="_blank" class="social-card th"><i class="fa-brands fa-threads"></i> <span>Threads</span></a>
-        <a href="${links.twitter}" target="_blank" class="social-card tw"><i class="fa-brands fa-x-twitter"></i> <span>X (Twitter)</span></a>
-        <a href="${links.linkedin}" target="_blank" class="social-card in"><i class="fa-brands fa-linkedin-in"></i> <span>LinkedIn</span></a>
+        <a href="${links.facebook}" target="_blank" rel="noopener noreferrer" class="social-card fb"><i class="fa-brands fa-facebook-f"></i> <span>Facebook</span></a>
+        <a href="${links.instagram}" target="_blank" rel="noopener noreferrer" class="social-card ig"><i class="fa-brands fa-instagram"></i> <span>Instagram</span></a>
+        <a href="${githubUrl}" target="_blank" rel="noopener noreferrer" class="social-card gh"><i class="fa-brands fa-github"></i> <span>GitHub</span></a>
+        <a href="${links.threads}" target="_blank" rel="noopener noreferrer" class="social-card th"><i class="fa-brands fa-threads"></i> <span>Threads</span></a>
+        <a href="${links.twitter}" target="_blank" rel="noopener noreferrer" class="social-card tw"><i class="fa-brands fa-x-twitter"></i> <span>X (Twitter)</span></a>
+        <a href="${links.linkedin}" target="_blank" rel="noopener noreferrer" class="social-card in"><i class="fa-brands fa-linkedin-in"></i> <span>LinkedIn</span></a>
         <a href="mailto:${links.email}" class="social-card em"><i class="fa-regular fa-envelope"></i> <span>Email</span></a>
     `;
 }
 
 async function openLinksModal() {
     const links = await getSetting('socialLinks', defaultLinks);
+    if (!links.github || links.github.includes('rjinnur')) {
+        links.github = "https://github.com/abdullahelbaki";
+    }
     document.getElementById('linkEmail').value = links.email;
-    document.getElementById('linkGithub').value = links.github;
+    document.getElementById('linkGithub').value = links.github || "https://github.com/abdullahelbaki";
     document.getElementById('linkLinkedin').value = links.linkedin;
     document.getElementById('linkFacebook').value = links.facebook;
     document.getElementById('linkInstagram').value = links.instagram;
