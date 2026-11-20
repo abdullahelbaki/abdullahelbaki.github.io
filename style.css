@@ -1205,16 +1205,57 @@ body.is-owner [data-editable]:focus {
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
+    /* Compact Header (Navbar) for Mobile */
     .navbar {
         flex-direction: column;
-        gap: 14px;
-        padding: 16px 20px;
+        gap: 8px;
+        padding: 10px 16px;
+    }
+    .logo {
+        font-size: 0.95rem;
+        letter-spacing: 2px;
     }
     .nav-links {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 16px;
+        gap: 6px 14px;
     }
+    .nav-links a {
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+        padding-bottom: 2px;
+    }
+
+    /* Compact Footer for Mobile */
+    .site-footer {
+        margin-top: 40px;
+    }
+    .footer-upper {
+        padding: 16px 16px;
+    }
+    .footer-social-circles {
+        gap: 12px;
+    }
+    .footer-social-circles a {
+        width: 32px;
+        height: 32px;
+        font-size: 0.95rem;
+    }
+    .footer-lower {
+        padding: 24px 16px;
+    }
+    .footer-nav-links {
+        gap: 8px 16px;
+        margin-bottom: 16px;
+    }
+    .footer-nav-links a {
+        font-size: 0.7rem;
+        letter-spacing: 1.2px;
+    }
+    .footer-copy {
+        font-size: 0.75rem;
+    }
+
     .about-hero,
     .resume-box,
     .sa-dual-grid {
@@ -1226,5 +1267,55 @@ body.is-owner [data-editable]:focus {
     }
     .sub-heading {
         justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra-compact Header for Small Mobile Phones */
+    .navbar {
+        gap: 6px;
+        padding: 8px 12px;
+    }
+    .logo {
+        font-size: 0.88rem;
+        letter-spacing: 1.5px;
+    }
+    .nav-links {
+        gap: 5px 10px;
+    }
+    .nav-links a {
+        font-size: 0.66rem;
+        letter-spacing: 0.8px;
+        padding-bottom: 2px;
+    }
+
+    /* Extra-compact Footer for Small Mobile Phones */
+    .site-footer {
+        margin-top: 30px;
+    }
+    .footer-upper {
+        padding: 12px 12px;
+    }
+    .footer-social-circles {
+        gap: 10px;
+    }
+    .footer-social-circles a {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    .footer-lower {
+        padding: 18px 12px;
+    }
+    .footer-nav-links {
+        gap: 6px 12px;
+        margin-bottom: 12px;
+    }
+    .footer-nav-links a {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+    .footer-copy {
+        font-size: 0.72rem;
     }
 }
