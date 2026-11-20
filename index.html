@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdullahel Baki | Vibe Coder & Full-Stack Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================= OWNER TOP CONTROL BAR (Hidden for General Visitors) ================= -->
+    <div id="ownerAdminBar" class="owner-admin-bar owner-only">
+        <div class="admin-bar-left">
+            <span class="admin-badge"><i class="fa-solid fa-shield-halved"></i> OWNER CMS ACTIVE</span>
+            <span class="admin-hint">Click any highlighted text on the page to edit directly.</span>
+        </div>
+        <div class="admin-bar-actions">
+            <button onclick="openLinksModal()" class="admin-btn"><i class="fa-solid fa-link"></i> Edit Links</button>
+            <button onclick="openPasscodeModal()" class="admin-btn"><i class="fa-solid fa-key"></i> Passcodes</button>
+            <button onclick="exportDatabase()" class="admin-btn"><i class="fa-solid fa-download"></i> Backup DB</button>
+            <label for="importDbInput" class="admin-btn" style="cursor:pointer;"><i class="fa-solid fa-upload"></i> Restore DB</label>
+            <input type="file" id="importDbInput" accept=".json" hidden>
+            <button onclick="logoutOwner()" class="admin-btn danger"><i class="fa-solid fa-right-from-bracket"></i> Exit Owner</button>
+        </div>
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar">
+        <div class="logo" data-editable="site_logo" onclick="switchTab('home')">ABDULLAHEL BAKI</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-item active" data-target="home">HOME</a></li>
+                <li><a href="#skills-activities" class="nav-item" data-target="skills-activities">SKILLS & ACTIVITIES</a></li>
+                <li><a href="#projects" class="nav-item" data-target="projects">PROJECTS</a></li>
+                <li><a href="#resume" class="nav-item" data-target="resume">RESUME</a></li>
+                <li><a href="#about" class="nav-item" data-target="about">ABOUT ME</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- ================= HOME DASHBOARD ================= -->
+        <section id="home" class="tab-content active-tab">
+            <div class="blueprint-hero">
+                <div class="sketch-box">
+                    <h1 class="sketch-title" data-editable="hero_sketch_title">ABDULLAHEL BAKI</h1>
+                </div>
+            </div>
+
+            <div class="home-intro">
+                <h2>
+                    <strong data-editable="home_intro_name">Hi, I’m Abdullahel Baki,</strong> 
+                    <span id="homeTypewriter"></span><span class="cursor">|</span>
+                </h2>
+
+                <div class="home-avatar-wrapper">
+                    <img class="sync-profile-img" src="image/abdullahelbaki_profile_picture.jpeg" alt="Abdullahel Baki">
+                    <label for="profileUploadInput" class="avatar-upload-overlay owner-only" title="Change Profile Photo">
+                        <i class="fa-solid fa-camera"></i> Change Photo
+                    </label>
+                </div>
+
+                <div id="quickSocialContainer" class="quick-social-icons"></div>
+
+                <div class="center-btn-wrap">
+                    <button class="btn-dark-square" onclick="switchTab('resume')" data-editable="home_resume_btn">RESUME</button>
+                </div>
+            </div>
+
+            <div class="container">
+                <hr class="section-divider">
+
+                <!-- Skills & Activities Preview on Home -->
+                <div class="home-section-block">
+                    <h2 class="clean-heading" data-editable="home_sa_heading">Skills & Activities</h2>
+                    <p class="featured-label" data-editable="home_sa_sub">TECHNICAL EXPERTISE & LEADERSHIP</p>
+                    <div id="homeSkillsActivitiesPreview" class="sa-dual-grid"></div>
+                    <div class="center-btn-wrap" style="margin-top: 35px;">
+                        <button class="btn-dark-square" onclick="switchTab('skills-activities')">VIEW ALL SKILLS & ACTIVITIES</button>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Featured Projects on Home -->
+                <div class="home-section-block">
+                    <h2 class="clean-heading" data-editable="home_proj_heading">Projects</h2>
+                    <p class="featured-label" data-editable="home_proj_sub">FEATURED SOFTWARE</p>
+                    <div id="homeFeaturedProjects" class="projects-grid"></div>
+                    <div class="center-btn-wrap" style="margin-top: 45px;">
+                        <button class="btn-dark-square" onclick="switchTab('projects')">ALL PROJECTS</button>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Life Beyond Coding Section on Home (Right above Footer) -->
+                <div class="home-section-block">
+                    <h2 class="clean-heading" data-editable="home_life_heading">Life Beyond Coding</h2>
+                    <p class="featured-label" data-editable="home_life_sub">CHESS, MARATHON, VLOGGING & TRAVEL STORIES (CLICK ANY CARD TO EXPLORE)</p>
+                    <div id="homeLifeGalleryGrid" class="life-gallery"></div>
+                    <div class="center-btn-wrap" style="margin-top: 40px;">
+                        <button class="btn-dark-square" onclick="switchTab('about')">MORE ABOUT ME</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SKILLS & ACTIVITIES PAGE ================= -->
+        <section id="skills-activities" class="tab-content">
+            <div class="container">
+                <div class="page-header-row">
+                    <div>
+                        <h2 class="clean-heading" data-editable="sa_page_heading">Skills & Activities</h2>
+                        <p class="section-sub" data-editable="sa_page_sub">Core technical competencies, leadership roles, and extracurricular milestones.</p>
+                    </div>
+                    <button class="btn-dark-square owner-only" id="toggleSaFormBtn" onclick="openSaForm()"><i class="fa-solid fa-plus"></i> ADD ITEM</button>
+                </div>
+
+                <div id="addSaFormContainer" class="project-form-card hidden owner-only">
+                    <h3 id="saFormModalTitle">Add Skill Category or Leadership Role</h3>
+                    <form id="saForm">
+                        <input type="hidden" id="saEditId">
+                        <div class="form-group">
+                            <label>Section Type</label>
+                            <select id="saCategoryType" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
+                                <option value="skill">Technical Skill Group</option>
+                                <option value="leadership">Leadership & Extracurricular Activity</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Title / Role / Skill Domain</label>
+                            <input type="text" id="saTitle" placeholder="e.g., Full-Stack Web Development or Class Representative" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Organization / Subtitle / Period</label>
+                            <input type="text" id="saSubtitle" placeholder="e.g., Daffodil International University | 2024 - Present" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Details / Technologies (Comma separated for skills, or paragraph for activities)</label>
+                            <textarea id="saDesc" rows="3" placeholder="Describe details..." required></textarea>
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button type="submit" class="btn-primary">Save to Database</button>
+                            <button type="button" class="btn-outline" onclick="closeSaForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Two Organized Sections -->
+                <div class="sa-full-layout">
+                    <div class="sa-block">
+                        <h3 class="sub-heading"><i class="fa-solid fa-code"></i> <span data-editable="sa_tech_title">Technical Skills</span></h3>
+                        <div id="technicalSkillsGrid" class="sa-cards-grid"></div>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <div class="sa-block">
+                        <h3 class="sub-heading"><i class="fa-solid fa-award"></i> <span data-editable="sa_lead_title">Leadership & Extracurricular Activities</span></h3>
+                        <div id="leadershipTimeline" class="timeline"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROJECTS PAGE ================= -->
+        <section id="projects" class="tab-content">
+            <div class="container">
+                <div class="page-header-row">
+                    <div>
+                        <h2 class="clean-heading" data-editable="proj_page_heading">Projects</h2>
+                        <p class="featured-label" data-editable="proj_page_sub">ALL SOFTWARE & ARCHITECTURE</p>
+                    </div>
+                    <button class="btn-dark-square owner-only" id="toggleProjectFormBtn" onclick="openProjectForm()"><i class="fa-solid fa-plus"></i> ADD NEW PROJECT</button>
+                </div>
+
+                <div id="addProjectFormContainer" class="project-form-card hidden owner-only">
+                    <h3 id="projFormModalTitle">Add a New Project</h3>
+                    <form id="projectForm">
+                        <input type="hidden" id="projEditId">
+                        <div class="form-group">
+                            <label>Project Title (Displayed in CAPS)</label>
+                            <input type="text" id="projTitle" placeholder="e.g., DOCDESK" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" id="projDate" placeholder="e.g., April 2026" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tech Stack (comma separated)</label>
+                            <input type="text" id="projTech" placeholder="e.g., HTML, CSS, JavaScript, Node.js, MySQL" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Project Thumbnail Image (Upload new OR leave empty)</label>
+                            <input type="file" id="projImageFile" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label>Short Description</label>
+                            <textarea id="projDesc" rows="3" placeholder="Briefly describe what this project does..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Live / GitHub Link (or leave # for custom popup message)</label>
+                            <input type="text" id="projLink" placeholder="https://github.com/... or #" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Custom Click Popup Alert Message (Optional - overrides link if set)</label>
+                            <input type="text" id="projAlertMsg" placeholder="e.g., সাইটটি লোকাল হোস্টে চলছে । খুব শীঘ্রই পাবলিক হবে ।">
+                        </div>
+                        <div style="display:flex; gap:10px;">
+                            <button type="submit" class="btn-primary">Save Project</button>
+                            <button type="button" class="btn-outline" onclick="closeProjectForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="projectsGrid" class="projects-grid"></div>
+            </div>
+        </section>
+
+        <!-- ================= RESUME PAGE ================= -->
+        <section id="resume" class="tab-content">
+            <div class="container">
+                <h2 class="clean-heading" data-editable="resume_page_heading">Resume & Credentials</h2>
+                <p class="section-sub" data-editable="resume_page_sub">Academic background, technical proficiencies, leadership highlights, and official CV.</p>
+
+                <div class="resume-box">
+                    <div class="skills-col">
+                        <h3 data-editable="resume_edu_heading">Education</h3>
+                        <div class="resume-edu-item">
+                            <p><strong data-editable="resume_edu_degree">B.Sc. in Software Engineering</strong></p>
+                            <p style="font-size:0.9rem; color:#234982; font-weight:600;" data-editable="resume_edu_uni">Daffodil International University (DIU) | 2024 – Present</p>
+                            <p class="text-muted" style="font-size:0.88rem; margin-top:4px;" data-editable="resume_edu_desc">Relevant Coursework: Data Structures & Algorithms, Object-Oriented Programming (Java), Database Management Systems (MySQL), Operating Systems, Web Engineering, Software Project Management.</p>
+                        </div>
+
+                        <div class="resume-edu-item" style="margin-top: 14px;">
+                            <p><strong data-editable="resume_hsc_title">Higher Secondary Certificate (HSC) – GPA 5.00</strong></p>
+                            <p class="text-muted" style="font-size:0.86rem;" data-editable="resume_hsc_inst">Tamirul Millat Kamil Madrasah | 2023</p>
+                        </div>
+
+                        <div class="resume-edu-item" style="margin-top: 10px;">
+                            <p><strong data-editable="resume_ssc_title">Secondary School Certificate (SSC) – GPA 5.00</strong></p>
+                            <p class="text-muted" style="font-size:0.86rem;" data-editable="resume_ssc_inst">Belatia Kamil Madrasah | 2021</p>
+                        </div>
+
+                        <h3 style="margin-top: 30px;" data-editable="resume_skills_title">Core Technical Skills</h3>
+                        <div id="skillsTagContainer" class="skill-tags"></div>
+
+                        <div class="owner-only" style="margin-top: 15px; display:flex; gap:8px;">
+                            <input type="text" id="newSkillInput" placeholder="Add new skill (e.g. Spring Boot)" style="padding:7px 12px; border:1px solid #cbd5e1; flex:1;">
+                            <button class="btn-primary" onclick="addNewSkill()" style="padding:7px 16px;">+ Add Skill</button>
+                        </div>
+                    </div>
+
+                    <div class="resume-download">
+                        <!-- Embedded PDF / CV Preview Card -->
+                        <div class="cv-preview-card">
+                            <iframe id="cvPdfEmbed" src="image/abdullahelbaki_cv.pdf#toolbar=0&navpanes=0&scrollbar=0" title="Abdullahel Baki CV"></iframe>
+                            <label for="cvImageUploadInput" class="cv-img-upload-overlay owner-only" title="Upload CV Preview Image">
+                                <i class="fa-solid fa-camera"></i> Change CV Preview
+                            </label>
+                            <input type="file" id="cvImageUploadInput" accept="image/*" hidden>
+                        </div>
+
+                        <p data-editable="resume_box_prompt" style="font-size: 0.88rem; color: #64748b;">Download my official curriculum vitae (PDF).</p>
+                        <a href="image/abdullahelbaki_cv.pdf" download="abdullahelbaki_cv.pdf" id="downloadCvBtn" class="btn-dark-square"><i class="fa-solid fa-download"></i> CLICK HERE TO DOWNLOAD</a>
+                        
+                        <label for="cvUploadInput" class="cv-upload-label owner-only"><i class="fa-solid fa-upload"></i> Upload / Replace PDF Document</label>
+                        <input type="file" id="cvUploadInput" accept="application/pdf" hidden>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT ME PAGE ================= -->
+        <section id="about" class="tab-content">
+            <div class="container">
+                
+                <div class="about-hero">
+                    <div class="profile-photo-wrapper">
+                        <img class="sync-profile-img" src="image/abdullahelbaki_profile_picture.jpeg" alt="Abdullahel Baki">
+                        <label for="profileUploadInput" class="upload-badge owner-only" title="Upload your photo">
+                            <i class="fa-solid fa-camera"></i> Upload Photo
+                        </label>
+                        <input type="file" id="profileUploadInput" accept="image/*" hidden>
+                    </div>
+
+                    <div class="about-intro-text">
+                        <span class="interactive-badge" data-editable="about_badge">ABOUT ME</span>
+                        <h2 class="interactive-headline">
+                            <strong data-editable="about_greeting">Hi, I’m Abdullahel Baki,</strong> <span id="typewriter">a Vibe Coder & Full-Stack Developer with a knack for building Software.</span><span class="cursor">|</span>
+                        </h2>
+                        <div class="owner-only" style="margin-bottom:12px;">
+                            <button class="admin-inline-btn" onclick="editTypewriterLines()"><i class="fa-solid fa-pen"></i> Edit Typewriter Sentences</button>
+                        </div>
+                        <p class="bio-description" data-editable="about_bio_text">
+                            I am a passionate Vibe Coder & Full-Stack Developer studying Software Engineering at Daffodil International University, turning complex ideas into intuitive, high-performance digital products. From crafting interactive frontend interfaces to building end-to-end full-stack applications with Java, Node.js, and MySQL, I thrive on creating software that solves real-world challenges.
+                        </p>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="journey-section">
+                    <h3 class="sub-heading"><i class="fa-solid fa-route"></i> <span data-editable="about_journey_heading">My Journey So Far</span></h3>
+                    <div class="journey-card">
+                        <p data-editable="about_journey_p1">
+                            My journey into the world of software engineering started with pure curiosity—wondering how websites, compilers, and applications actually work under the hood. What began with writing my first lines of C code and solving algorithmic puzzles quickly turned into a lifelong dedication to building real software.
+                        </p>
+                        <p data-editable="about_journey_p2">
+                            Along the way, I pushed myself through late-night vibe coding sessions, end-to-end full-stack architecture, competitive programming, and leadership roles as a Class Representative and Senior Executive in the Software Engineering Club. Every challenge taught me resilience, and every deployed application fueled my drive to innovate further.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="social-section" style="margin-top: 50px;">
+                    <div class="page-header-row">
+                        <h3 class="sub-heading"><i class="fa-solid fa-share-nodes"></i> <span data-editable="about_social_heading">Connect With Me</span></h3>
+                        <button class="admin-inline-btn owner-only" onclick="openLinksModal()"><i class="fa-solid fa-pen-to-square"></i> Manage Social Links</button>
+                    </div>
+                    <div id="aboutSocialGrid" class="social-links-grid"></div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="personal-life-section">
+                    <div class="page-header-row">
+                        <div>
+                            <h3 class="sub-heading"><i class="fa-solid fa-camera-retro"></i> <span data-editable="about_life_heading">Life Beyond Coding</span></h3>
+                            <p class="section-sub" data-editable="about_life_sub">Click on any card below to dive into my chess tournaments, 21K marathon run, documentary filmmaking, and Tanguar Haor travels.</p>
+                        </div>
+                        <button class="btn-dark-square owner-only" id="toggleLifeFormBtn" onclick="openLifeForm()"><i class="fa-solid fa-plus"></i> ADD LIFE MOMENT</button>
+                    </div>
+
+                    <div id="addLifeFormContainer" class="project-form-card hidden owner-only">
+                        <h3 id="lifeFormModalTitle">Add Personal Activity / Photo</h3>
+                        <form id="lifeForm">
+                            <input type="hidden" id="lifeEditId">
+                            <div class="form-group">
+                                <label>Activity Title</label>
+                                <input type="text" id="lifeTitle" placeholder="e.g., Chess Competition" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Upload Photo (Leave empty to keep existing)</label>
+                                <input type="file" id="lifeImageFile" accept="image/*">
+                            </div>
+                            <div class="form-group">
+                                <label>Short Card Summary</label>
+                                <textarea id="lifeDesc" rows="2" placeholder="Short summary shown on the card..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Story (Shown when user clicks inside the card)</label>
+                                <textarea id="lifeFullStory" rows="4" placeholder="Detailed story..." required></textarea>
+                            </div>
+                            <div style="display:flex; gap:10px;">
+                                <button type="submit" class="btn-primary">Save Moment</button>
+                                <button type="button" class="btn-outline" onclick="closeLifeForm()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div id="lifeGalleryGrid" class="life-gallery"></div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="vlogging-dropdown-section">
+                    <button class="vlog-dropdown-toggle" id="vlogDropdownBtn">
+                        <span><i class="fa-solid fa-video"></i> <span data-editable="about_vlog_btn_title">My Personal Vlogging & Documentary Showcase</span></span>
+                        <i class="fa-solid fa-chevron-down" id="dropdownArrow"></i>
+                    </button>
+
+                    <div class="vlog-dropdown-content" id="vlogDropdownContent">
+                        <div class="vlog-controls owner-only">
+                            <input type="text" id="vlogUrlInput" value="https://www.youtube.com/embed?listType=search&list=Badhyabhumi+71+Sreemangal" placeholder="Enter your Vlogging Website or Embed URL">
+                            <button class="btn-primary" id="loadVlogBtn">Save & Update URL</button>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; flex-wrap:wrap; gap:10px;">
+                            <p class="vlog-helper-text" data-editable="about_vlog_helper" style="margin-bottom:0;">Explore my book reviews and the Badhyabhumi 71 (Sreemangal Martyr's Memorial) documentary I led and produced.</p>
+                            <a href="https://youtube.com" target="_blank" id="openExternalVlog" class="btn-outline">Open Fullscreen <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe id="vlogIframe" src="https://www.youtube.com/embed?listType=search&list=Badhyabhumi+71+Sreemangal" title="Personal Vlogging Website"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+        <div class="footer-upper">
+            <div id="footerSocialContainer" class="footer-social-circles"></div>
+        </div>
+        <div class="footer-lower">
+            <ul class="footer-nav-links">
+                <li><a href="#resume" onclick="switchTab('resume')">RESUME</a></li>
+                <li><a href="#about" onclick="switchTab('about')">ABOUT ME</a></li>
+                <li><a href="#projects" onclick="switchTab('projects')">PROJECTS</a></li>
+                <li><a href="#skills-activities" onclick="switchTab('skills-activities')">SKILLS & ACTIVITIES</a></li>
+            </ul>
+            <p class="footer-copy">
+                Copyright <a href="javascript:void(0)" id="secretOwnerTrigger" class="secret-copyright-link" title="©">©</a> <span id="currentYear"></span> <span data-editable="footer_owner_name">Abdullahel Baki</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- ================= LIFE BEYOND CODING STORY & GALLERY MODAL ================= -->
+    <div id="lifeStoryModal" class="modal-backdrop hidden">
+        <div class="modal-card life-story-modal-card">
+            <div class="modal-header">
+                <h3 id="lifeModalTitle"><i class="fa-solid fa-book-open"></i> Story Details</h3>
+                <button class="modal-close" onclick="closeLifeStoryModal()">×</button>
+            </div>
+            <div class="life-modal-media-wrap">
+                <img id="lifeModalMainImg" src="" alt="Story Photo">
+                <button id="lifePrevImgBtn" class="gallery-nav-btn prev-btn hidden" onclick="changeLifeModalImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                <button id="lifeNextImgBtn" class="gallery-nav-btn next-btn hidden" onclick="changeLifeModalImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            <div id="lifeModalThumbs" class="life-modal-thumbs"></div>
+            <div id="lifeModalBody" class="life-modal-story-text"></div>
+        </div>
+    </div>
+
+    <!-- ================= OWNER AUTH & CMS MODALS ================= -->
+    <div id="authModal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-lock"></i> Owner Authentication</h3>
+                <button class="modal-close" onclick="closeAuthModal()">×</button>
+            </div>
+            <p class="modal-sub">Enter your two unique security codes to unlock full CMS editing mode.</p>
+            <form id="ownerAuthForm">
+                <div class="form-group">
+                    <label>Unique Code 1</label>
+                    <input type="password" id="authCode1" placeholder="Enter first secret code" required>
+                </div>
+                <div class="form-group">
+                    <label>Unique Code 2</label>
+                    <input type="password" id="authCode2" placeholder="Enter second secret code" required>
+                </div>
+                <p id="authErrorMsg" class="auth-error hidden">Invalid security codes! Access denied.</p>
+                <button type="submit" class="btn-dark-square" style="width:100%;">UNLOCK OWNER DASHBOARD</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="linksModal" class="modal-backdrop hidden">
+        <div class="modal-card" style="max-width: 550px;">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-link"></i> Manage All Website Links</h3>
+                <button class="modal-close" onclick="closeLinksModal()">×</button>
+            </div>
+            <form id="linksManagerForm">
+                <div class="form-group">
+                    <label><i class="fa-regular fa-envelope"></i> Email Address</label>
+                    <input type="email" id="linkEmail" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-brands fa-github"></i> GitHub URL</label>
+                    <input type="url" id="linkGithub" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-brands fa-linkedin-in"></i> LinkedIn URL</label>
+                    <input type="url" id="linkLinkedin" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-brands fa-facebook-f"></i> Facebook URL</label>
+                    <input type="url" id="linkFacebook" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-brands fa-instagram"></i> Instagram URL</label>
+                    <input type="url" id="linkInstagram" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-brands fa-threads"></i> Threads URL</label>
+                    <input type="url" id="linkThreads" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-brands fa-x-twitter"></i> X (Twitter) URL</label>
+                    <input type="url" id="linkTwitter" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Save Links</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="passcodeModal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-key"></i> Update Owner Passcodes</h3>
+                <button class="modal-close" onclick="closePasscodeModal()">×</button>
+            </div>
+            <form id="passcodeForm">
+                <div class="form-group">
+                    <label>New Code 1</label>
+                    <input type="text" id="newPass1" required>
+                </div>
+                <div class="form-group">
+                    <label>New Code 2</label>
+                    <input type="text" id="newPass2" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;">Update Passcodes</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
